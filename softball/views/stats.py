@@ -93,7 +93,7 @@ def stats_list():
     result = [mstats.stats.to_json(x) for x in stat]
 
     app.logger.info('%s', "Call to list succeeded.")
-    return result
+    return seasoned_response(result, "200")
 
 
 #stats/update
