@@ -3,8 +3,7 @@ from softball import app, db
 from softball.models import stats as mstats
 from flask import Flask, Response, request, json, jsonify, url_for, g, _request_ctx_stack, abort, has_request_context, session, make_response, send_file
 from flask import Blueprint
-import time
-from datetime import datetime
+from softball.utils import seasoned_response
 
 
 mod = Blueprint('stats', __name__, url_prefix='/stats')
@@ -24,7 +23,7 @@ def stats_add():
     db.session.commit()
     result = stat.to_json()
     app.logger.info('%s %r', "Successfully added new record to database:", result)
-    return "200"
+    return seasoned_response(result, "200")
 
 
 #stats/delete
@@ -94,7 +93,7 @@ def stats_list():
     result = [mstats.stats.to_json(x) for x in stat]
 
     app.logger.info('%s', "Call to list succeeded.")
-    return "200"
+    return result
 
 
 #stats/update
